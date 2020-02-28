@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,600,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
+
+/* mobile first */
+* {
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+
+}
+
+body {
+  margin: 0;
+  background-color: black;
+  color: black;
+
+}
+
+h1 {
+  color: #d01257;
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  font-size: 2em;
+  margin: 0.5em auto 0em auto;
+}
+
+h2 {
+  margin-top: 0;
+  color: #fb90b7;
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: 400;
+}
+
+a {
+  color: rgb(83, 153, 180);
+  text-decoration: none;
+}
+
+
+
+/* NAVIGATION */
+nav ul {
+  padding: 0 1em 0 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+nav img {
+  width: 2.5em;
+}
+
+
+
+/* CHOICE SCREEN */
+.choice a {
+  display: block;
+}
+
+.choice a img {
+  display: block;
+  height: 70vw;
+  width: 100%;
+  object-fit: cover;
+  margin: 0;
+}
+
+.choice a:first-of-type img {
+  border-bottom: solid 2px #D75A4A;
+  border-radius: 4% 4% 0% 0%;
+}
+
+.choice a:last-of-type img {
+  border-top: solid 2px #D75A4A;
+  border-radius: 0% 0% 4% 4%;
+}
+
+.choice div>img {
+  height: auto;
+  width: 3em;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.choice>a {
+  /* border-style: none; */
+  padding: 0.5em 1em;
+  background-color: black;
+  border: solid 2px #d01257;
+  font-family: 'Lobster';
+  color: #d01257;
+  display: block;
+  font-size: 1.5em;
+  margin: 0.5em auto;
+  width: 50%;
+  text-align: center;
+}
+
+
+/* MIDDLE SCREENS */
+@media screen and (min-width: 500px) {
+  .choice {
+    max-width: 80%;
+    margin: auto;
+  }
+}
+
+
+/* BIG SCREENS */
+@media screen and (min-width: 1000px) {
+  .choice div a {
+    width: 50%;
+  }
+  .choice {
+    max-width: 60%;
+    margin: auto;
+  }
+
+  .choice div {
+    display: flex;
+    position: relative;
+  }
+
+  .choice img {
+    max-height: 30vw;
+    margin: auto;
+    width: 50%;
+  }
+
+
+  .choice a:first-of-type img {
+    border-bottom: none;
+    border-right: solid 2px #D75A4A;
+    border-radius: 4% 0% 0% 4%;
+  }
+
+  .choice a:last-of-type img {
+    border-top: none;
+    border-left: solid 2px #D75A4A;
+    border-radius: 0% 4% 4% 0%;
+  }
+
+  .choice div>img {
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+   
+  }
+
+}
