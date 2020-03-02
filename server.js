@@ -17,8 +17,8 @@ app
 
 
 
-app.get('/about', (req, res) => {
-  res.render('about.ejs', {
+app.get('/finding', (req, res) => {
+  res.render('finding.ejs', {
     data
   })
 })
