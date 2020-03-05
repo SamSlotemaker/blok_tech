@@ -8,23 +8,29 @@
 
     <main>
         <section class="choice">
-            <h1>Choose one</h1>
-            <h2>Pick the one you like to most, to find your match!</h2>
-            <div>
-                <a href="finding2.html">
+            <form action="">
+                <h1>Choose one</h1>
+                <h2>Pick the one you like to most, to find your match!</h2>
+
+                <div>
+
+
                     <img src="images/audi.jpg" alt="image of car one">
-                </a>
-                <img src="images/icons/like.svg" alt="heart image">
-                <a href="finding2.html">
+
+                    <img src="images/icons/like.svg" alt="heart image">
+
                     <img src="images/porsche.png" alt="image of car two">
-                </a>
-            </div>
-            <a href="">Skip question</a>
+
+                </div>
+                <!-- <a href="">Next question</a> -->
+                <button type="submit">Next question</button>
+            </form>
         </section>
     </main>
 
 
     <%- include('footer.ejs') %>
+    <script src="/script/script.js"></script>
 </body>
 
 </html>
