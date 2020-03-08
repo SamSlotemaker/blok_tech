@@ -19,3 +19,8 @@ imageTwo.addEventListener('click', () => {
     imageOne.style.opacity = .5;
     console.log(imageClicked);
 });
+
+
+// imageClicked = 1;
+
+  module.exports = imageClicked

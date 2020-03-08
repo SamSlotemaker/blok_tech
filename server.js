@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+var imageClicked = require('./public/script/script')
 
+console.log(imageClicked);
 
 
 let data = {
@@ -27,9 +29,9 @@ app
     })
   })
 
-app.get('/finding', (req, res) => {
-  res.sendFile('public/finding.html' , { root : __dirname});
-})
+// app.get('/finding', (req, res) => {
+//   res.sendFile('public/finding.html' , { root : __dirname});
+// })
 
 app.get('*', (req, res) => {
   res.status(404).end('Error: 404 - Page not found');
