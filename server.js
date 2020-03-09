@@ -1,20 +1,26 @@
 const express = require('express');
 const app = express();
 const port = 4000;
-// var imageClicked = require('./public/script/script')
-
+let collection = null;
 require('dotenv').config()
 
+
+//database configuratie
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@datingapp-alfy7.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
+const client = new MongoClient(uri, {
+  useNewUrlParser: true
 });
 
-// console.log(imageClicked);
+client.connect(function (err, client) {
+  if (err) {
+    throw err
+  }
+
+  collection = client.db("datingapp").collection("userAnswers");
+})
+
+
 
 let images = [
   "images/audi.jpg",
@@ -23,19 +29,29 @@ let images = [
   "images/bentley.jpg"
 ]
 
-const randomCar = () => {
-  return Math.floor(Math.random() * images.length);
+
+//een random auto kiezen als foto
+let randomCar1;
+let randomCar2;
+
+randomCar = () => {
+  const randomNumber = () => {
+    return Math.floor(Math.random() * images.length);
+  }
+
+  randomCar1 = randomNumber();
+  randomCar2 = randomNumber();
+
+  console.log(randomCar1 + " " + randomCar2);
+
+  //zorg er voor dat de auto's nooit hetzelfde kunnen zijn
+  while (randomCar1 === randomCar2) {
+    randomCar2 = randomNumber();
+    console.log(randomCar1 + " " + randomCar2)
+  }
 }
 
-let randomCar1 = randomCar();
-let randomCar2 = randomCar();
-
-console.log(randomCar1 + " " + randomCar2);
-
-while (randomCar1 === randomCar2) {
-  randomCar2 = randomCar();
-  console.log(randomCar1 + " " + randomCar2)
-}
+randomCar();
 
 
 
@@ -47,9 +63,6 @@ let data = {
   imageUrl2: images[randomCar2],
 }
 
-let playerAnswers = {
-
-}
 
 
 
@@ -81,11 +94,18 @@ app.get('*', (req, res) => {
 app.get('/sendImage', (req, res) => {
   res.render('finding.ejs', {
     data
-  }) 
+  })
 })
 app.post('/sendImage', (req, res) => {
-  playerAnswers.questionOne = req.body.imageClicked;
-  res.send(playerAnswers);
+
+  collection.insertOne({
+    answer: req.body.imageClicked
+  })
+
+  randomCar();
+  
+  res.redirect('/finding');
+
 })
 
 app.listen(port, () => console.log(`app running on port: ${port}`));
