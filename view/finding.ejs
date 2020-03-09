@@ -8,21 +8,21 @@
 
     <main>
         <section class="choice">
-            <form action="">
+            <form action="/sendImage" method="POST">
                 <h1>Choose one</h1>
                 <h2>Pick the one you like to most, to find your match!</h2>
-
                 <div>
 
 
-                    <img src="images/audi.jpg" alt="image of car one">
+                    <img src=<%= data.imageUrl1 %> alt="image of car one">
 
                     <img src="images/icons/like.svg" alt="heart image">
 
-                    <img src="images/porsche.png" alt="image of car two">
+                    <img src= <%= data.imageUrl2 %> alt="image of car two">
 
                 </div>
                 <!-- <a href="">Next question</a> -->
+                <input type="hidden" name="imageClicked" id="id">
                 <button type="submit">Next question</button>
             </form>
         </section>
