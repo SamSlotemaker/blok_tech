@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-let collection = null;
 require('dotenv').config();
 const session = require('express-session'); 
 
@@ -11,6 +10,7 @@ app.use(session({
 }))
 
 //database configuratie
+let collection = null;
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@datingapp-alfy7.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, {
@@ -68,9 +68,7 @@ let data = {
   imageUrl2: images[randomCar2],
 }
 
-
-
-
+//routes
 app
   .use(express.static('public'))
   .set('view engine', 'ejs')
@@ -80,40 +78,29 @@ app
   }))
   .post('/sendImage', sendImage)
   .get('/finding', finding)
+  .get('*', error404) 
 
 
-
-
+//find match pagina
 function finding(req, res){
-  // req.session.name = 'Sam';
   res.render('finding.ejs', {
     data
   })
 }
 
-app.get('*', (req, res) => {
+//ongeldige pagina
+function error404(req, res) {
   res.status(404).end('Error: 404 - Page not found');
-})
+}
 
-
-app.get('/sendImage', (req, res) => {
-  res.render('finding.ejs', {
-    data
-  })
-})
-app
-
+//verzenden van image op antwoorden van vraag
 function sendImage(req, res)  {
   collection.insertOne({
     answer: req.body.car
-  })
-
+  });
   randomCar();
-  
   res.redirect('/finding');
-
 }
-
 
 
 app.listen(port, () => console.log(`app running on port: ${port}`));
