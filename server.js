@@ -1,9 +1,14 @@
 const express = require('express');
 const app = express();
-const port = 4000;
+const port = 3000;
 let collection = null;
-require('dotenv').config()
+require('dotenv').config();
+const session = require('express-session'); 
 
+app.use(session({
+  'secret': '343ji43j4nasaSSAs3jn4jk3n',
+  'name': 'Sam'
+}))
 
 //database configuratie
 const MongoClient = require('mongodb').MongoClient;
@@ -73,18 +78,18 @@ app
   .use(express.urlencoded({
     extended: false
   }))
+  .post('/sendImage', sendImage)
+  .get('/finding', finding)
 
 
 
-app.get('/finding', (req, res) => {
+
+function finding(req, res){
+  // req.session.name = 'Sam';
   res.render('finding.ejs', {
     data
   })
-})
-
-// app.get('/finding', (req, res) => {
-//   res.sendFile('public/finding.html' , { root : __dirname});
-// })
+}
 
 app.get('*', (req, res) => {
   res.status(404).end('Error: 404 - Page not found');
@@ -96,16 +101,19 @@ app.get('/sendImage', (req, res) => {
     data
   })
 })
-app.post('/sendImage', (req, res) => {
+app
 
+function sendImage(req, res)  {
   collection.insertOne({
-    answer: req.body.imageClicked
+    answer: req.body.car
   })
 
   randomCar();
   
   res.redirect('/finding');
 
-})
+}
+
+
 
 app.listen(port, () => console.log(`app running on port: ${port}`));

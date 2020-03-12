@@ -13,16 +13,18 @@
                 <h2>Pick the one you like to most, to find your match!</h2>
                 <div>
 
+                    <label>
+                        <input type="radio" name="car" value="1">
+                        <img src=<%= data.imageUrl1 %> alt="image of car one" width='100%'';>
+                    </label>
 
-                    <img src=<%= data.imageUrl1 %> alt="image of car one">
+                    <img src="images/icons/like.svg" alt="heart image" class="heart">
 
-                    <img src="images/icons/like.svg" alt="heart image">
-
-                    <img src= <%= data.imageUrl2 %> alt="image of car two">
-
+                    <label>
+                        <input type="radio" name="car" value="2">
+                        <img src=<%= data.imageUrl2 %> alt="image of car two">
+                    </label>
                 </div>
-                <!-- <a href="">Next question</a> -->
-                <input type="hidden" name="imageClicked" id="id">
                 <button type="submit">Next question</button>
             </form>
         </section>
