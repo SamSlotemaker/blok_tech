@@ -6,7 +6,8 @@ const session = require('express-session');
 
 app.use(session({
   'secret': '343ji43j4nasaSSAs3jn4jk3n',
-  'name': 'Sam'
+  saveUninitialized: false,
+  resave: false
 }))
 
 //database configuratie
@@ -35,15 +36,20 @@ app
   }))
   .post('/sendImage', sendImage)
   .get('/finding', finding)
+  .get('/list', list)
+
   .get('*', error404)
 
 
-  
+
+
 let images = [
   "images/audi.jpg",
   "images/porsche.png",
   "images/mercedes.jpeg",
-  "images/bentley.jpg"
+  "images/bentley.jpg",
+  "images/ninjaBike.jpg",
+  "images/bike.jpg"
 ]
 
 let questionNumber = 0;
@@ -54,11 +60,41 @@ let data = {
   imageUrl1: images[0],
   imageUrl2: images[1],
   imageUrl3: images[2],
-  imageUrl4: images[3]
+  imageUrl4: images[3],
+  imageUrl5: images[4],
+  imageUrl6: images[5]
 }
 
+
+
+function list(req, res) {
+  collection.findOne({user: "SamSloot"}, done)
+
+  function done(err, data) {
+    if(err){
+      next(err)
+    }
+    else{
+      res.render('list.ejs', {
+        data
+      });
+    
+    }
+  }
+
+
+ 
+  
+}
 //find match pagina
 function finding(req, res) {
+  req.session.user = "SamSloot";
+
+  //delete de huidige antwoorden van de ingelogde gebruiker
+  collection.deleteOne({
+    user: req.session.user
+  })
+
   res.render('finding.ejs', {
     data
   })
@@ -71,15 +107,23 @@ function error404(req, res) {
 
 //verzenden van image op antwoorden van vraag
 function sendImage(req, res) {
+
   collection.insertOne({
+    user: req.session.user,
     answerOne: req.body.car1,
-    answerTwo: req.body.car2
-  });
+    answerTwo: req.body.car2,
+    answerThree: req.body.car3
+  }, done);
 
-  
-  res.send(`je hebt net vraag 1:${req.body.car1} en vraag 2: ${req.body.car2} naar de database gepusht.`)
-  questionNumber++;
-
+    function done(err, data) {
+    if(err){
+      next(err)
+    }
+    else{
+      res.redirect('/list')
+    
+    }
+  }
 
 }
 

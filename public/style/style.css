@@ -36,7 +36,9 @@ a {
   text-decoration: none;
 }
 
-
+.linkButton {
+  display: block;
+}
 
 /* NAVIGATION */
 nav ul {
@@ -95,7 +97,7 @@ nav img {
   z-index: 1;
 }
 
-.choice form>button {
+.choice form>button, .linkButton {
   /* border-style: none; */
   padding: 0.5em 1em;
   background-color: black;

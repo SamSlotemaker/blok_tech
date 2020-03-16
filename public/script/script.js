@@ -1,5 +1,7 @@
 //progressive form code from https://www.w3schools.com/howto/howto_js_form_steps.asp
 
+var nextButton = document.querySelector('button');
+nextButton.type = 'button';
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
@@ -7,9 +9,6 @@ function showTab(n) {
   // This function will display the specified tab of the form ...
   var x = document.getElementsByClassName("tab");
   x[n].style.display = "flex";
- 
-
-
 }
 
 function nextPrev(n) {
