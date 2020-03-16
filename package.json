@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "main": "server.js",
+  "license": "ISC",
   "scripts": {
     "start": "node server.js",
     "test": "nodemon server.js"
@@ -16,8 +17,7 @@
     "express-session": "^1.17.0",
     "http-errors": "~1.6.3",
     "mongodb": "^3.5.4",
-    "morgan": "~1.9.1",
-    "pug": "2.0.0-beta11"
+    "morgan": "~1.9.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
