@@ -73,7 +73,7 @@ function matches(req, res) {
 
   function done(err, useData) {
     data.user = useData;
-    console.log(data.user)
+    // console.log(data.user)
     if (err) {
       next(err)
     } else {
@@ -93,9 +93,38 @@ function matches(req, res) {
       } else {
         data.user.answerThreeImg = images[5]
       }
-      res.render('matches.ejs', {
-        data
-      });
+
+
+      collection.find({
+        user: {
+          $ne: req.session.user
+        }
+      }).toArray(doneTwo);
+
+      function doneTwo(err, useData) {
+        if (err) {
+          throw err;
+        } else {
+          console.log(useData);
+
+          data.matches = [];
+          for (let i = 0; i < useData.length; i++) {
+            if (data.user.answerOne == useData[i].answerOne && data.user.answerTwo == useData[i].answerTwo &&
+              data.user.answerThree == useData[i].answerThree) {
+              data.matches.push(useData[i])
+              console.log(`${useData[i].user} is toegevoegd aan matches`)
+            }
+          }
+          console.log(data.matches);
+        }
+
+        res.render('matches.ejs', {
+          data
+        });
+      }
+
+
+
 
     }
   }
@@ -141,6 +170,7 @@ function sendImage(req, res) {
 
     }
   }
+
 
 }
 
