@@ -1,27 +1,31 @@
+//progressive form code from https://www.w3schools.com/howto/howto_js_form_steps.asp
+
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form ...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "flex";
+ 
 
 
-// let imageOne = document.querySelector('.choice img:first-of-type');
-// let imageTwo = document.querySelector('.choice img:last-of-type');
+}
 
-// let imageClicked = 1;
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
 
-// imageOne.addEventListener('click', () => {
-//     imageClicked = 1;
-//     document.getElementById('id').value = imageClicked;
-//     imageOne.style.opacity = 1;
-//     imageTwo.style.opacity = .5;
-//     console.log(imageClicked);
-// })
-
-
-// imageTwo.addEventListener('click', () => {
-//     imageClicked = 2;
-//     document.getElementById('id').value = imageClicked;
-//     imageTwo.style.opacity = 1;
-//     imageOne.style.opacity = .5;
-//     console.log(imageClicked);
-// });
-
-
-
-
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form... :
+  if (currentTab >= x.length) {
+    //...the form gets submitted:
+    document.getElementById("carForm").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}

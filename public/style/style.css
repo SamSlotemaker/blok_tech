@@ -57,6 +57,12 @@ nav img {
   display: block;
 }
 
+.choice div {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 .choice img {
   display: block;
   height: 70vw;
@@ -80,6 +86,7 @@ nav img {
 }
 
 .choice .heart{
+  top: 50%;
   height: auto;
   width: 3em;
   position: absolute;
@@ -124,6 +131,22 @@ nav img {
 }
 
 
+
+
+/* PROGRESSIVE FORM */
+
+.choice .tab {
+  display: none;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+
+
+
 /* MIDDLE SCREENS */
 @media screen and (min-width: 500px) {
   .choice {
@@ -146,6 +169,7 @@ nav img {
 
   .choice div {
     display: flex;
+    flex-direction: row;
     position: relative;
   }
 

@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 require('dotenv').config();
-const session = require('express-session'); 
+const session = require('express-session');
 
 app.use(session({
   'secret': '343ji43j4nasaSSAs3jn4jk3n',
@@ -34,38 +34,41 @@ let images = [
   "images/bentley.jpg"
 ]
 
+let questionNumber = 0;
 
-//een random auto kiezen als foto
-let randomCar1;
-let randomCar2;
 
-randomCar = () => {
-  const randomNumber = () => {
-    return Math.floor(Math.random() * images.length);
-  }
+// //een random auto kiezen als foto
+// let randomCar1;
+// let randomCar2;
 
-  randomCar1 = randomNumber();
-  randomCar2 = randomNumber();
+// randomCar = () => {
+//   const randomNumber = () => {
+//     return Math.floor(Math.random() * images.length);
+//   }
 
-  console.log(randomCar1 + " " + randomCar2);
+//   randomCar1 = randomNumber();
+//   randomCar2 = randomNumber();
 
-  //zorg er voor dat de auto's nooit hetzelfde kunnen zijn
-  while (randomCar1 === randomCar2) {
-    randomCar2 = randomNumber();
-    console.log(randomCar1 + " " + randomCar2)
-  }
-}
+//   console.log(randomCar1 + " " + randomCar2);
 
-randomCar();
+//   //zorg er voor dat de auto's nooit hetzelfde kunnen zijn
+//   while (randomCar1 === randomCar2) {
+//     randomCar2 = randomNumber();
+//     console.log(randomCar1 + " " + randomCar2)
+//   }
+// }
+
+// randomCar();
 
 
 
 let data = {
   title: "Datingapp",
-  page: "About",
   name: "Sam Slotemaker",
-  imageUrl1: images[randomCar1],
-  imageUrl2: images[randomCar2],
+  imageUrl1: images[0],
+  imageUrl2: images[1],
+  imageUrl3: images[2],
+  imageUrl4: images[3]
 }
 
 //routes
@@ -78,11 +81,11 @@ app
   }))
   .post('/sendImage', sendImage)
   .get('/finding', finding)
-  .get('*', error404) 
+  .get('*', error404)
 
 
 //find match pagina
-function finding(req, res){
+function finding(req, res) {
   res.render('finding.ejs', {
     data
   })
@@ -94,12 +97,16 @@ function error404(req, res) {
 }
 
 //verzenden van image op antwoorden van vraag
-function sendImage(req, res)  {
+function sendImage(req, res) {
   collection.insertOne({
-    answer: req.body.car
+    answerOne: req.body.car1,
+    answerTwo: req.body.car2
   });
-  randomCar();
-  res.redirect('/finding');
+  // randomCar();
+  res.send(`je hebt net vraag 1:${req.body.car1} en vraag 2: ${req.body.car2} naar de database gepusht.`)
+  questionNumber++;
+
+
 }
 
 
