@@ -30,7 +30,14 @@ h2 {
   font-size: 1.3em;
   font-weight: 400;
 }
+ p {
+   color: #D75A4A;
+ }
 
+ ul li {
+  list-style-type: none; 
+   color: #D75A4A;
+ }
 a {
   color: rgb(83, 153, 180);
   text-decoration: none;
@@ -147,6 +154,26 @@ nav img {
 }
 
 
+/* LIST */
+.list p {
+  text-align: center;
+}
+.answerList {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.answerList li{
+  text-align: center;
+  margin: 0.5em;
+}
+.answerList img{
+ 
+  object-fit: cover;
+  height: 5em;
+  width: 5em;
+}
 
 
 /* MIDDLE SCREENS */

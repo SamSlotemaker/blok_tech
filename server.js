@@ -29,13 +29,13 @@ app
     extended: false
   }))
   .use(session({
-    'secret': '343ji43j4nasaSSAs3jn4jk3n',
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false
   }))
   .post('/sendImage', sendImage)
   .get('/finding', finding)
-  .get('/list', list)
+  .get('/matches', matches)
   .get('*', error404)
 
 
@@ -58,31 +58,51 @@ let data = {
 }
 
 //vul data met foto's; op imageUrlX
-for(let i =0; i < images.length; i++){
-  let index = "imageUrl" + (i+1);
-
+for (let i = 0; i < images.length; i++) {
+  let index = "imageUrl" + (i + 1);
   data[index] = images[i];
 }
 
 
-function list(req, res) {
-  collection.findOne({user: "SamSloot"}, done)
+function matches(req, res) {
+  req.session.user = "SamSloot";
+  console.log(req.session.user);
+  collection.findOne({
+    user: req.session.user
+  }, done)
 
-  function done(err, data1) {
-    if(err){
+  function done(err, useData) {
+    data.user = useData;
+    console.log(data.user)
+    if (err) {
       next(err)
-    }
-    else{
-      res.render('list.ejs', {
+    } else {
+
+      if (data.user.answerOne == 1) {
+        data.user.answerOneImg = images[0]
+      } else {
+        data.user.answerOneImg = images[1]
+      }
+      if (data.user.answerTwo == 1) {
+        data.user.answerTwoImg = images[2]
+      } else {
+        data.user.answerTwoImg = images[3]
+      }
+      if (data.user.answerThree == 1) {
+        data.user.answerThreeImg = images[4]
+      } else {
+        data.user.answerThreeImg = images[5]
+      }
+      res.render('matches.ejs', {
         data
       });
-    
+
     }
   }
 
 
- 
-  
+
+
 }
 //find match pagina
 function finding(req, res) {
@@ -113,13 +133,12 @@ function sendImage(req, res) {
     answerThree: req.body.car3
   }, done);
 
-    function done(err, data) {
-    if(err){
+  function done(err, data) {
+    if (err) {
       next(err)
-    }
-    else{
-      res.redirect('/list')
-    
+    } else {
+      res.redirect('/matches')
+
     }
   }
 
