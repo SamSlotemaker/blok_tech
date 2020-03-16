@@ -63,7 +63,7 @@ for (let i = 0; i < images.length; i++) {
   data[index] = images[i];
 }
 
-
+//pagina waarop je je matches kunt zien
 function matches(req, res) {
   req.session.user = "SamSloot";
   console.log(req.session.user);
@@ -78,6 +78,7 @@ function matches(req, res) {
       next(err)
     } else {
 
+      //verkrijg de url's van de user antwoorden
       if (data.user.answerOne == 1) {
         data.user.answerOneImg = images[0]
       } else {
@@ -94,7 +95,7 @@ function matches(req, res) {
         data.user.answerThreeImg = images[5]
       }
 
-
+//verzamel alle users die niet gelijk zijn aan de huidige gebruiker en stop ze in een array
       collection.find({
         user: {
           $ne: req.session.user
@@ -107,6 +108,7 @@ function matches(req, res) {
         } else {
           console.log(useData);
 
+          //push alle gebruikers met de zelfde antwoorden als jij in een array
           data.matches = [];
           for (let i = 0; i < useData.length; i++) {
             if (data.user.answerOne == useData[i].answerOne && data.user.answerTwo == useData[i].answerTwo &&

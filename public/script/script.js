@@ -1,5 +1,13 @@
 //progressive form code from https://www.w3schools.com/howto/howto_js_form_steps.asp
 
+
+//maak alle tabs standaard niet zichtbaar
+var tabs = document.querySelectorAll(".choice .tab");
+console.log(tabs);
+for(let i = 0; i < tabs.length; i++){
+  tabs[i].style.display = 'none';
+}
+
 var nextButton = document.querySelector('button');
 nextButton.type = 'button';
 var currentTab = 0; // Current tab is set to be the first tab (0)

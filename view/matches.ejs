@@ -24,12 +24,14 @@
 
         <section>
             <h3>Je bent gematcht met:</h3>
+            <ul>
             <% for (var index = 0; index < data.matches.length; index++) { %>
-            <p>
+            <li>
                 <%= data.matches[index].user %>
-            </p>
+            </li>
 
             <% } %>
+        </ul>
         </section>
         <a class="linkButton" href="/finding">Try again</a>
     </main>

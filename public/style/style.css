@@ -152,9 +152,9 @@ nav img {
 
 /* PROGRESSIVE FORM */
 
-.choice .tab {
+/* .choice .tab {
   display: none;
-}
+} */
 
 /* Mark the active step: */
 .step.active {
@@ -171,13 +171,13 @@ nav img {
   margin: 5em auto;
 }
 
-.answerList {
+.list ul {
   padding: 0;
   display: flex;
   justify-content: center;
 }
 
-.answerList li {
+.list li {
   text-align: center;
   margin: 0.5em;
 }
