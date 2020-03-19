@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3001;
+const port = 3000;
 require('dotenv').config();
 const session = require('express-session');
 
@@ -16,7 +16,6 @@ client.connect(function (err, client) {
   if (err) {
     throw err
   }
-
   collection = client.db("datingapp").collection("userAnswers");
 })
 
@@ -50,13 +49,12 @@ let images = [
   "images/bike.jpg"
 ]
 
-let questionNumber = 0;
 
 let data = {
-  title: "Datingapp",
-  name: "Sam Slotemaker"
+  title: "Datingapp"
 }
 
+//maak een functie van
 //vul data met foto's; op imageUrlX
 for (let i = 0; i < images.length; i++) {
   let index = "imageUrl" + (i + 1);
@@ -77,7 +75,6 @@ function matches(req, res) {
     if (err) {
       next(err)
     } else {
-
       //verkrijg de url's van de user antwoorden
       if (data.user.answerOne == 1) {
         data.user.answerOneImg = images[0]
@@ -99,7 +96,7 @@ function matches(req, res) {
       collection.find({
         user: {
           $ne: req.session.user
-        }
+        }  
       }).toArray(doneTwo);
 
       function doneTwo(err, useData) {
@@ -119,22 +116,14 @@ function matches(req, res) {
           }
           console.log(data.matches);
         }
-
         res.render('matches.ejs', {
           data
         });
       }
-
-
-
-
     }
   }
-
-
-
-
 }
+
 //find match pagina
 function finding(req, res) {
   req.session.user = "SamSloot";
@@ -169,12 +158,7 @@ function sendImage(req, res) {
       next(err)
     } else {
       res.redirect('/matches')
-
     }
   }
-
-
 }
-
-
 app.listen(port, () => console.log(`app running on port: ${port}`));
