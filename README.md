@@ -46,7 +46,7 @@ npm start
 De app draait op localhost:3000
 
 ## Documentatie
-De documentatie van mijn onderzoek en het process kunt u vinden op mijn [wiki](https://github.com/SamSlotemaker/blok_tech/wiki)
+De documentatie van mijn onderzoek en het proces kunt u vinden op mijn [wiki](https://github.com/SamSlotemaker/blok_tech/wiki)
 
 ## Auteur
 * **Sam Slotemaker** 
