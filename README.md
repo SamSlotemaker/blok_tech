@@ -25,3 +25,6 @@ npm install
 ```
 npm start
 ```
+
+## License
+Dit project is gelisenceerd onder de MIT lisence. Zie het [LICENSE.md](LICENSE.md) bestand voor meer informatie.
