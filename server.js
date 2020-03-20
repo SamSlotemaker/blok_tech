@@ -12,6 +12,7 @@ const client = new MongoClient(uri, {
   useNewUrlParser: true
 });
 
+//database connect
 client.connect(function (err, client) {
   if (err) {
     throw err
@@ -38,10 +39,7 @@ app
   .post('/changeName', changeUserName)
   .get('*', error404)
 
-
-
-
-
+//informatie declaraties
 let images = [
   "images/audi.jpg",
   "images/porsche.png",
@@ -50,7 +48,6 @@ let images = [
   "images/ninjaBike.jpg",
   "images/bike.jpg"
 ]
-
 
 let data = {
   title: "Datingapp"
@@ -115,7 +112,7 @@ function matchesPage(req, res, next) {
 
   function done(err, useData) {
     data.user = useData;
-    // console.log(data.user)
+
     if (err) {
       next(err)
     } else {
@@ -147,8 +144,6 @@ function matchesPage(req, res, next) {
         if (err) {
           throw err;
         } else {
-          // console.log(useData);
-
           //push alle gebruikers met de zelfde antwoorden als jij in een array
           data.matches = [];
           for (let i = 0; i < useData.length; i++) {
@@ -158,9 +153,7 @@ function matchesPage(req, res, next) {
               console.log(`${useData[i].user} is toegevoegd aan matches`)
             }
           }
-          // console.log(data.matches);
         }
-        console.log(data);
         res.render('matches.ejs', {
           data
         });
