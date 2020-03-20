@@ -189,6 +189,22 @@ nav img {
   width: 5em;
 }
 
+.formulier {
+  margin-top: 4em;
+}
+
+.formulier input {
+padding: 1em;
+color: #d01257;
+background-color: black;
+border: 2px #d01257 solid;
+margin: auto;
+display: block;
+}
+
+.formulier button {
+  width: 25%;
+}
 
 /* MIDDLE SCREENS */
 @media screen and (min-width: 500px) {

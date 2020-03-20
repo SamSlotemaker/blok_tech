@@ -32,10 +32,12 @@ app
     saveUninitialized: false,
     resave: false
   }))
-  .post('/sendImage', sendImage)
-  .get('/finding', finding)
-  .get('/matches', matches)
+  .get('/finding', findMatch)
+  .post('/postQuestionAnswers', postQuestionAnswers)
+  .get('/matches', matchesPage)
+  .post('/changeName', changeUserName)
   .get('*', error404)
+
 
 
 
@@ -56,13 +58,55 @@ let data = {
 
 //maak een functie van
 //vul data met foto's; op imageUrlX
-for (let i = 0; i < images.length; i++) {
-  let index = "imageUrl" + (i + 1);
-  data[index] = images[i];
+function fillImages() {
+  for (let i = 0; i < images.length; i++) {
+    let index = "imageUrl" + (i + 1);
+    data[index] = images[i];
+  }
+}
+fillImages();
+
+//find match pagina
+function findMatch(req, res, next) {
+  //delete de huidige antwoorden van de ingelogde gebruiker
+  collection.deleteOne({
+    user: req.session.user
+  }, done)
+
+  function done(err, useData) {
+    if (err) {
+      next(err)
+    } else {
+      req.session.user = "SamSloot";
+      res.render('finding.ejs', {
+        data
+      })
+    }
+  }
 }
 
+//verzenden van image op antwoorden van vraag
+function postQuestionAnswers(req, res, next) {
+
+  collection.insertOne({
+    user: req.session.user,
+    answerOne: req.body.car1,
+    answerTwo: req.body.car2,
+    answerThree: req.body.car3
+  }, done);
+
+  function done(err, data) {
+    if (err) {
+      next(err)
+    } else {
+      res.redirect('/matches')
+    }
+  }
+}
+
+
 //pagina waarop je je matches kunt zien
-function matches(req, res) {
+function matchesPage(req, res, next) {
   req.session.user = "SamSloot";
   console.log(req.session.user);
   collection.findOne({
@@ -92,18 +136,18 @@ function matches(req, res) {
         data.user.answerThreeImg = images[5]
       }
 
-//verzamel alle users die niet gelijk zijn aan de huidige gebruiker en stop ze in een array
+      //verzamel alle users die niet gelijk zijn aan de huidige gebruiker en stop ze in een array
       collection.find({
         user: {
           $ne: req.session.user
-        }  
+        }
       }).toArray(doneTwo);
 
       function doneTwo(err, useData) {
         if (err) {
           throw err;
         } else {
-          console.log(useData);
+          // console.log(useData);
 
           //push alle gebruikers met de zelfde antwoorden als jij in een array
           data.matches = [];
@@ -114,8 +158,9 @@ function matches(req, res) {
               console.log(`${useData[i].user} is toegevoegd aan matches`)
             }
           }
-          console.log(data.matches);
+          // console.log(data.matches);
         }
+        console.log(data);
         res.render('matches.ejs', {
           data
         });
@@ -124,18 +169,31 @@ function matches(req, res) {
   }
 }
 
-//find match pagina
-function finding(req, res) {
-  req.session.user = "SamSloot";
+function changeUserName(req, res, next) {
 
-  //delete de huidige antwoorden van de ingelogde gebruiker
-  collection.deleteOne({
+  //find de huidige gebruiker in de database en update zijn naam naar de nieuw ingevulde naam
+  collection.findOneAndUpdate({
     user: req.session.user
-  })
+  }, {
+    $set: {
+      user: req.body.newName
+    }
+  }, done)
 
-  res.render('finding.ejs', {
-    data
-  })
+  function done(err, useData) {
+    //verander de session van de gebruiker samen met het gerenderde data object
+    req.session.user = req.body.newName;
+    data.user.user = req.session.user;
+
+    if (err) {
+      next(err)
+    } else {
+      //render de pagina opnieuw om de nieuwe naam van de gebruiker te tonen
+      res.render('matches.ejs', {
+        data
+      });
+    }
+  }
 }
 
 //ongeldige pagina
@@ -143,22 +201,4 @@ function error404(req, res) {
   res.status(404).end('Error: 404 - Page not found');
 }
 
-//verzenden van image op antwoorden van vraag
-function sendImage(req, res) {
-
-  collection.insertOne({
-    user: req.session.user,
-    answerOne: req.body.car1,
-    answerTwo: req.body.car2,
-    answerThree: req.body.car3
-  }, done);
-
-  function done(err, data) {
-    if (err) {
-      next(err)
-    } else {
-      res.redirect('/matches')
-    }
-  }
-}
 app.listen(port, () => console.log(`app running on port: ${port}`));
