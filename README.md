@@ -29,7 +29,7 @@ git clone https://github.com/SamSlotemaker/blok_tech.git
 ```
 cd blok_tech/
 ```
-3. Plaats de .env file in de hoofdmap (voor nu is deze meegepusht naar github, deze stap overslaan)
+3. Plaats de .env file in de hoofdmap
 
 4. installeer de vereiste packages
 ```
