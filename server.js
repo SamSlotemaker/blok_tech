@@ -33,7 +33,7 @@ app
     saveUninitialized: false,
     resave: false
   }))
-  .get('/finding', findMatch)
+  .get('/find-match', findMatch)
   .post('/postQuestionAnswers', postQuestionAnswers)
   .get('/matches', matchesPage)
   .post('/changeName', changeUserName)
@@ -75,7 +75,7 @@ function findMatch(req, res, next) {
       next(err)
     } else {
       req.session.user = "SamSloot";
-      res.render('finding.ejs', {
+      res.render('find-match.ejs', {
         data
       })
     }

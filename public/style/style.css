@@ -130,8 +130,8 @@ nav img {
 /* RADIO BUTTON STYLING */
 
 /* HIDE RADIO */
-[type=radio] {
-  position: absolute;
+[type=radio] { 
+  position: absolute; 
   opacity: 0;
   width: 0;
   height: 0;
