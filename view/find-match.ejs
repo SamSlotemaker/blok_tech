@@ -12,24 +12,24 @@
                 <h1>Choose one</h1>
                 <h2>Pick the one you like to most, to find your match!</h2>
                 <div>
-                    <div class="tab">
-                        <label>
-                            <input type="radio" name="car1" value="1">
-                            <img src=<%= data.imageUrl1 %> alt="image of car one" width='100%' ;>
+                    <div class="tab" id="tab1">
+                        <label id="labelOne">
+                            <input type="radio" name="car1" value="1" id="inputOne">
+                            <img src=<%= data.imageUrl1 %> alt="image of car one" width='100%' id="imageOne">
                         </label>
 
-                        <img src="images/icons/like.svg" alt="heart image" class="heart">
+                        <img src="images/icons/like.svg" alt="heart image" class="heart" id="heartOne">
 
-                        <label>
-                            <input type="radio" name="car1" value="2">
-                            <img src=<%= data.imageUrl2 %> alt="image of car two">
+                        <label id="labelTwo">
+                            <input type="radio" name="car1" value="2" id="inputTwo">
+                            <img src=<%= data.imageUrl2 %> alt="image of car two" id="imageTwo">
                         </label>
                     </div>
 
                     <div class="tab">
                         <label>
                             <input type="radio" name="car2" value="1">
-                            <img src=<%= data.imageUrl3 %> alt="image of car one" width='100%' ;>
+                            <img src=<%= data.imageUrl3 %> alt="image of car one" width='100%' >
                         </label>
 
                         <img src="images/icons/like.svg" alt="heart image" class="heart">
@@ -61,6 +61,7 @@
 
 
     <%- include('footer.ejs') %>
+    <script src="/script/swipe.js"></script>
     <script src="/script/script.js"></script>
 </body>
 
